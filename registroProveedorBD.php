@@ -2,7 +2,6 @@
 
 
 header('Content-type: text/html; charset=UTF-8');  
-
 $tns = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=pruebas.czsf3gnrfqtq.us-west-2.rds.amazonaws.com)(PORT=1521))(CONNECT_DATA=(SID=ORCL)))";
 $conn = oci_connect("pruebas", "ninise92", $tns);
 if (!$conn) {
@@ -20,7 +19,7 @@ $razon= $_POST["razonS"];
 //$servicio= $_POST["servicio"];
 $tipo_sede= $_POST["tipoS"];
 $descripcion= $_POST["descripcionP"];
-$pais= 'colombia';
+$pais= $_POST["paisP"];
 $departamentoP= $_POST["deptosP"];
 $ciudadP= $_POST["ciudadP"];
 $direccionP= $_POST["direccionP"];

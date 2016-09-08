@@ -1,4 +1,5 @@
 <?php
+header('Content-type: text/html; charset=UTF-8');  
 // Conectar al servicio XE (es deicr, la base de datos) en la máquina "localhost"
 $tns = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=pruebas.czsf3gnrfqtq.us-west-2.rds.amazonaws.com)(PORT=1521))(CONNECT_DATA=(SID=ORCL)))";
 $conn = oci_connect("pruebas", "ninise92", $tns);

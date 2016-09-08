@@ -1,8 +1,7 @@
 <?php
 // Conectar al servicio XE (es deicr, la base de datos) en la máquina "localhost"
 
-header('Content-type: text/html');  
-
+header('Content-type: text/html; charset=UTF-8');  
 $tns = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=pruebas.czsf3gnrfqtq.us-west-2.rds.amazonaws.com)(PORT=1521))(CONNECT_DATA=(SID=ORCL)))";
 $conn = oci_connect("pruebas", "ninise92", $tns);
 if (!$conn) {
@@ -30,19 +29,6 @@ if ($i == 0) {
     echo "true";
 }else{
   echo "false";
-}
-
-
-
-function utf8ize($d) {
-    if (is_array($d)) {
-        foreach ($d as $k => $v) {
-            $d[$k] = utf8ize($v);
-        }
-    } else if (is_string ($d)) {
-        return utf8_encode($d);
-    }
-    return $d;
 }
 
 function is_array_empty($arr){

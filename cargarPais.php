@@ -8,15 +8,9 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 }
+//Tabla con informacion de los usuarios
 
-/*$conn = oci_connect('AUTOMOTOR', 'automotor', '192.168.1.89/automotor');
-if (!$conn) {
-    $e = oci_error();
-    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-}*/
-$marca= $_POST['marca'];
-//Tabla con informacion de las ciudades
-$stid = oci_parse($conn, "SELECT CODIGO, NOMBRE FROM AC_P_LINEA M WHERE MARCA= '${marca}' ORDER BY M.NOMBRE ASC");
+$stid = oci_parse($conn, "SELECT CODIGO, NOMBRE FROM AC_P_PAIS  D ORDER BY D.NOMBRE ASC");
 oci_execute($stid);
 
 $rows = [];

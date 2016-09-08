@@ -26,8 +26,7 @@ while($row = oci_fetch_assoc($stid))
 	$rows[] = $row;
 }
  echo (json_encode(utf8ize($rows)));
-
-function utf8ize($d) {
+ function utf8ize($d) {
     if (is_array($d)) {
         foreach ($d as $k => $v) {
             $d[$k] = utf8ize($v);
