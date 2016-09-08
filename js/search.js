@@ -1,11 +1,20 @@
 
-
+function getPais(){
+    $.ajax({    
+        type: "GET",
+        url: 'cargarPais.php',
+        success: function(data){
+            data = $.parseJSON(data);
+            $('#pais').append("<option selected value="+data[0].CODIGO+">"+data[0].NOMBRE+"</option>");
+        }
+    });
+}
 function getClaseVehiculo(){
     $('#claseV').empty();
     $('#claseV').append("<option disabled selected>Seleccione una</option>");
     $('#marca').append("<option disabled selected>Seleccione una</option>");
     $('#linea').append("<option disabled selected>Seleccione una</option>");
-     $.ajax({    
+    $.ajax({    
         type: "GET",
         url: 'cargarClaseVehiculo.php',
         success: function(data){
@@ -20,7 +29,7 @@ function getMarca() {
     $('#linea').empty();
     $('#linea').append("<option disabled selected>Seleccione una</option>");
     var val=$('#claseV option:selected').val();
-     $.ajax({    
+    $.ajax({    
         type: "POST",
         url: 'cargarMarca.php',
         data: { claseVehiculo: val },
@@ -34,7 +43,8 @@ function getLinea() {
     $('#linea').empty();
     $('#linea').append("<option disabled selected>Seleccione una</option>");
     var val=$('#marca option:selected').val();
-     $.ajax({    
+    console.log(val);
+    $.ajax({    
         type: "POST",
         url: 'cargarLinea.php',
         data: { marca: val },
@@ -47,7 +57,7 @@ function getLinea() {
 function getAseguradora(){
     $('#empresaA').empty();
     $('#empresaA').append("<option disabled selected>Seleccione una</option>");
-     $.ajax({    
+    $.ajax({    
         type: "GET",
         url: 'cargarAseguradoras.php',
         success: function(data){
@@ -58,9 +68,9 @@ function getAseguradora(){
 }
 function getDepartamentoAsociado(){
     $('#deptos').empty();
+    $('#comuna').attr("value","");
     $('#ciudades').empty();
     $('#ciudades').append("<option disabled selected>Seleccione una</option>");
-    $('#comuna').attr("value","TODAS");
     $.ajax({    
         type: "GET",
         url: 'cargarDepartamentos.php',
@@ -71,14 +81,13 @@ function getDepartamentoAsociado(){
     });
 }
 function getCiudadAsociado(){
-   $('#barrio').empty();
-   $('#barrio').append("<option disabled selected>Seleccione una</option>");
-   $('#comuna').empty();
-   $('#comuna').attr("value",'TODAS');
-   var val=$('#deptos option:selected').val();
-   $('#ciudades').empty();
-   $('#ciudades').append("<option disabled selected>Seleccione una</option>");
-   $.ajax({    
+var val=$('#deptos option:selected').val();
+ $('#barrio').empty();
+ $('#comuna').attr("value","");
+ $('#barrio').append("<option disabled selected>Seleccione uno</option>");
+ $('#ciudades').empty();
+ $('#ciudades').append("<option disabled selected>Seleccione una</option>");
+ $.ajax({    
     type: "POST",
     url: 'cargarCiudades.php',
     data: { depto: val },
@@ -87,34 +96,27 @@ function getCiudadAsociado(){
         organizarPorTag(data, 'NOMBRE');
         generarSelectCiudadA(data);
     }
-   });
+});
 }
 function getBarrioAsociado(){
     var val=$('#ciudades option:selected').val();
-    if(val==76001||val==11001||val==5001||val==8001){
-        $('#barrio').empty();
-        $('#barrio').append("<option disabled selected>Seleccione una</option>");
-        $.ajax({    
-            type: "POST",
-            url: 'cargarBarrios.php',
-            data: { ciudad: val },
-            success: function(data){
-               data = $.parseJSON(data);
-               organizarPorTag(data, 'NOMBRE');
-               generarSelectBarrioA(data);
-           }
-       });
-    } else{
-        $('#barrio').empty();
-        $('#barrio').append("<option selected value='1113669744'>TODOS</option>");
-    }
+    $('#comuna').attr("value","");
+    $('#barrio').empty();
+    $('#barrio').append("<option disabled selected>Seleccione uno</option>");
+    $.ajax({    
+        type: "POST",
+        url: 'cargarBarrios.php',
+        data: { ciudad: val },
+        success: function(data){
+         data = $.parseJSON(data);
+         organizarPorTag(data, 'NOMBRE');
+         generarSelectBarrioA(data);
+     }
+ });
 }
 function getComunaAsociado(){
-    var val=$('#ciudades option:selected').val();
-    if(val==76001||val==11001||val==5001||val==8001){
+        var val=$('#ciudades option:selected').val();
         var val2=$('#barrio option:selected').val();
-        $('#comuna').empty();
-        $('#comuna').append("<option disabled selected>Seleccione una</option>");
         $.ajax({    
             type: "POST",
             url: 'cargarComuna.php',
@@ -123,11 +125,7 @@ function getComunaAsociado(){
                 data = $.parseJSON(data);
                 $('#comuna').attr("value",data[0].NOMBRE_COMUNA);
             }
-        });
-    } else{
-        $('#comuna').empty();
-        $('#comuna').append("<option disabled selected>Seleccione una</option>");
-    }
+        }); 
 }
 function generarSelectDepartamentosA(x){
     var deptOption1;
@@ -151,10 +149,16 @@ function generarSelectCiudadA(x){
 function generarSelectBarrioA(x){
     var barrioOption;
     var i=0;
-    while(i<x.length){
-        barrioOption = "<option value='" + x[i].CODIGO + "'>" + x[i].NOMBRE+ "</option>";
-        $('#barrio').append(barrioOption);
-        i++;
+    var val=$('#ciudades option:selected').val();
+    if(val==76001||val==11001||val==5001||val==8001){
+        while(i<x.length){
+            barrioOption = "<option value='" + x[i].CODIGO + "'>" + x[i].NOMBRE+ "</option>";
+            $('#barrio').append(barrioOption);
+            i++;
+        }
+    }
+    else{
+        $('#barrio').append("<option value="+x[i].CODIGO+">"+x[i].NOMBRE+"</option>");
     }
 }
 function generarSelectClaseVehiculo(x){
@@ -202,7 +206,8 @@ function registrarFormaAsociado(){
 }
 function iniciarForm(){
   getClaseVehiculo();
-   getAseguradora();
+  getAseguradora();
+  getPais();
   getDepartamentoAsociado();
 }
 function completeForm(){
@@ -219,6 +224,7 @@ function completeForm(){
     $('#linea').empty();
     $('#empresaA').empty();
     $('#barrio').empty();
+    $('#comuna').attr("value","");
     clearBody();
 }
 function clearForm(){
@@ -234,6 +240,7 @@ function clearForm(){
     $('#empresaA').empty();
     $('#barrio').empty();
     $('#registroForm').bootstrapValidator("resetForm",true); 
+    $('#comuna').attr("value","");
     clearBody();
 }
 function submitForm() {
@@ -241,7 +248,7 @@ function submitForm() {
     validator.validate();
     validator.val
     /*validarId();*/
- 
+
     if (validator.isValid()) {
         registrarFormaAsociado();
         var diasFaltantes=diasRestantes();
@@ -254,7 +261,8 @@ function submitForm() {
         $("#registroA").modal('hide');
         $('#modalRegistroA').modal('show');
     } else{
-        $('#errors').attr("style","display:block;!important");
+        if(validator.isValid()==false){
+        $('#errors').attr("style","display:block;!important");}
     }
 }
 function contactanosP(){
@@ -275,7 +283,16 @@ function informacionAdicional(){
     $("#modalInfoAdicional").modal('show');
     $('#modalRegistroA').modal('hide');
 }
-
+function getPaisP(){
+    $.ajax({    
+        type: "GET",
+        url: 'cargarPais.php',
+        success: function(data){
+            data = $.parseJSON(data);
+            $('#paisP').append("<option selected value="+data[0].CODIGO+">"+data[0].NOMBRE+"</option>");
+        }
+    });
+}
 function getDepartamentosProveedor(){
     $('#ciudadP').empty();
     $('#ciudadP').append("<option disabled selected>Seleccione una</option>");
@@ -289,10 +306,10 @@ function getDepartamentosProveedor(){
     });
 }
 function getCiudadProveedor(){
-   var val=$('#deptosP option:selected').val();
-   $('#ciudadP').empty();
-   $('#ciudadP').append("<option disabled selected>Seleccione una</option>");
-   $.ajax({    
+ var val=$('#deptosP option:selected').val();
+ $('#ciudadP').empty();
+ $('#ciudadP').append("<option disabled selected>Seleccione una</option>");
+ $.ajax({    
     type: "POST",
     url: 'cargarCiudades.php',
     data: { depto: val },
@@ -301,7 +318,7 @@ function getCiudadProveedor(){
         organizarPorTag(data, 'NOMBRE');
         generarSelectCiudadP(data);
     }
-  });
+});
 }
 function generarSelectDepartamentoP(x){
     var deptOption;
@@ -324,20 +341,20 @@ function generarSelectCiudadP(x){
 }
 var idUsuario;
 function registarFormaProveedor(callback){
-      $.ajax({
-            type: 'POST',
-            url: 'registroProveedorBD.php',
-            data: $('#registroFormP').serialize(),
-            success: function (data) {
+  $.ajax({
+    type: 'POST',
+    url: 'registroProveedorBD.php',
+    data: $('#registroFormP').serialize(),
+    success: function (data) {
         setIdUsuario(data);
-       $('#infomsg2').append("<p align='center'>Su usuario de ingreso para AUTOMOTORES CLUB es: "+idUsuario+"</p>");
-       $('#infomsg2').append("<p align='justify'>A partir de ahora queda activa su membresía inicial como proveedor para "+$('#nombreP').val()+" y el valor de esta membresía es de $0.0 y estará activa mientras utilice los servicios de volanteo virtual de esta aplicación.</p>");
-       $('#infomsg2').append("<p align='center'>De 1mil hasta 5mil volantes por mes, lo mantendrá como proveedor CLASSIC.<br>Entre 6mil y 49mil volantes por mes, lo mantendrá como proveedor PREMIUM.<br>Despues de 50mil volantes por mes, lo mantendrá como proveedor SPECIAL.</p>");
-       $('#infomsg2').append("<p align='center'>Si la anterior información es clara ha culminado su proceso de registro.</p>");
-       $("#registroP").modal('hide');
-       $('#modalRegistroP').modal('show');
-            }
-        });
+        $('#infomsg2').append("<p align='center'>Su usuario de ingreso para AUTOMOTORES CLUB es: "+idUsuario+"</p>");
+        $('#infomsg2').append("<p align='justify'>A partir de ahora queda activa su membresía inicial como proveedor para "+$('#nombreP').val()+" y el valor de esta membresía es de $0.0 y estará activa mientras utilice los servicios de volanteo virtual de esta aplicación.</p>");
+        $('#infomsg2').append("<p align='center'>De 1mil hasta 5mil volantes por mes, lo mantendrá como proveedor CLASSIC.<br>Entre 6mil y 49mil volantes por mes, lo mantendrá como proveedor PREMIUM.<br>Despues de 50mil volantes por mes, lo mantendrá como proveedor SPECIAL.</p>");
+        $('#infomsg2').append("<p align='center'>Si la anterior información es clara ha culminado su proceso de registro.</p>");
+        $("#registroP").modal('hide');
+        $('#modalRegistroP').modal('show');
+    }
+});
 }
 function setIdUsuario(x){
   console.log(x);
@@ -347,6 +364,7 @@ function setIdUsuario(x){
 }
 
 function iniciarFormP(){
+  getPaisP();
   getDepartamentosProveedor();
 }
 
@@ -386,32 +404,32 @@ function submitFormP() {
 
     if (validator.isValid() && aux && aux2) {
         registarFormaProveedor();
-   }
-   else{
-    if(aux==false && aux2==false){
-        $('#errors2').attr("style","display:block;!important");
-        $('#bloqueMsj').attr("style","display:block");
-        $('#bloqueMsj2').attr("style","display:block");
-        $('#boxServicio').attr("style", "border: 1px solid #a94442"); 
-        $('#boxServicio2').attr("style", "border: 1px solid #a94442"); 
+    }
+    else{
+        if(aux==false && aux2==false){
+            $('#errors2').attr("style","display:block;!important");
+            $('#bloqueMsj').attr("style","display:block");
+            $('#bloqueMsj2').attr("style","display:block");
+            $('#boxServicio').attr("style", "border: 1px solid #a94442"); 
+            $('#boxServicio2').attr("style", "border: 1px solid #a94442"); 
 
-    }else{
-        if(aux==false){
-         $('#errors2').attr("style","display:block;!important");
-         $('#bloqueMsj').attr("style","display:block");
-         $('#boxServicio').attr("style", "border: 1px solid #a94442"); 
-     }else{
-        if (aux2==false) {
-          $('#errors2').attr("style","display:block;!important");
-          $('#bloqueMsj2').attr("style","display:block");
-          $('#boxServicio2').attr("style", "border: 1px solid #a94442"); 
-      }
-      else{
-         $('#errors2').attr("style","display:block;!important"); 
-        } 
-    }
-    }
-    }
+        }else{
+            if(aux==false){
+               $('#errors2').attr("style","display:block;!important");
+               $('#bloqueMsj').attr("style","display:block");
+               $('#boxServicio').attr("style", "border: 1px solid #a94442"); 
+           }else{
+            if (aux2==false) {
+              $('#errors2').attr("style","display:block;!important");
+              $('#bloqueMsj2').attr("style","display:block");
+              $('#boxServicio2').attr("style", "border: 1px solid #a94442"); 
+          }
+          else{
+           $('#errors2').attr("style","display:block;!important"); 
+       } 
+   }
+}
+}
 }
 function contactanosA(){
     $('#modalContactanos').modal('show');
@@ -447,11 +465,11 @@ function clearBody(){
     $('body').css('position','absolute');
 }
 function diasRestantes(){
-            var currentDate = new Date();
-            var vigencia = new Date($('#vigencia').val());
-            var oneDay = 24*60*60*1000;
-            var diffDays = Math.round(Math.abs((vigencia.getTime() - currentDate.getTime())/(oneDay)));
-            return diffDays;  
+    var currentDate = new Date();
+    var vigencia = new Date($('#vigencia').val());
+    var oneDay = 24*60*60*1000;
+    var diffDays = Math.round(Math.abs((vigencia.getTime() - currentDate.getTime())/(oneDay)));
+    return diffDays;  
 }
 function validarCheckbox(){
     var checkboxs=document.getElementsByName("tipoServicio[]");
@@ -512,23 +530,23 @@ function test() {
 
 
 function validarId(){
-   var val= $('#placa').val();
-   var res = val.toUpperCase();
-   $.ajax({    
+ var val= $('#placa').val();
+ var res = val.toUpperCase();
+ $.ajax({    
     type: "POST",
     url: 'validarId.php',
     data: { id_usuario: res },
     success: function(data){
-         data = $.parseJSON(data);
-         if(data){
+       data = $.parseJSON(data);
+       if(data){
           alert("La placa no existe");
-         }else{
-            alert("La placa ya existe");
-         }
+      }else{
+        alert("La placa ya existe");
     }
-   });
 }
-   function clearContactanos(){
+});
+}
+function clearContactanos(){
     $('#contactanos').bootstrapValidator("resetForm",true); 
     $('#contactanos').trigger("reset");
 }
@@ -538,5 +556,25 @@ function enviarFormContactanos(){
     validator.validate();
     validator.val
 }
+
+function upperCaseF(a){
+    setTimeout(function(){
+        a.value = a.value.toUpperCase();
+    }, 1);
+}
+
+
+
+$('select').on('select2:open', function(e) {
+    var aux=e.target.id;
+    $("#registroA").scroll(function() {
+          $('#'+aux).select2("close");
+})
+
+       $("#registroP").scroll(function() {
+          $('#'+aux).select2("close");
+})
+})
+
 
 
