@@ -1,0 +1,328 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-image: url("franja-2.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+}
+
+
+
+.test[style] {
+  padding-right:inherit !important;
+}
+
+.modal-open {
+  overflow: hidden;
+  width: calc(100% - 17px);
+  width: -moz-calc(100% - 16px); 
+}
+h1 {
+  color: #2B6CA2;
+}
+
+
+/* Makes images fully responsive */
+
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ------------------- Carousel Styling ------------------- */
+
+.carousel-inner {
+  border-radius: 15px;
+}
+
+.carousel-caption {
+  background-color: rgba(0,0,0,.5);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding: 0 0 10px 25px;
+  color: #fff;
+  text-align: left;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  z-index: 15;
+  margin: 0;
+  padding: 0 25px 25px 0;
+  text-align: right;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+  background-image: none;
+}
+
+
+/* ------------------- Section Styling - Not needed for carousel styling ------------------- */
+
+.section-white {
+   padding: 10px 0;
+}
+
+.section-white {
+  background-color: #fff;
+  color: #555;
+}
+
+div.textos{
+  border: 2px solid #ddd;
+  height: 70px;
+}
+
+div.box{
+  border: 1px solid #ddd;
+}
+
+label.insidebox{
+  left: 10px;
+}
+
+
+#infomsg p{
+  font-size: 14px;
+}
+
+#sendInfoBody p{
+  font-size: 14px;
+}
+
+#bloqueMsj {
+  display: none;
+}
+
+#bloqueMsj p{
+  height: 10px;
+  font-size: 12px;
+  color: #a94442;
+}
+
+#bloqueMsj2 {
+  display: none;
+}
+
+#bloqueMsj2 p{
+  height: 10px;
+  font-size: 12px;
+  color: #a94442;
+}
+
+#errors {
+  border-left: 5px solid #a94442;
+  display: none;
+  padding-left: 10px;
+}
+
+#errors p{
+  font-size: 12px;
+}
+
+#errors2 {
+  border-left: 5px solid #a94442;
+  display: none;
+  padding-left: 10px;
+}
+
+#errors2 p{
+  font-size: 15px;
+}
+
+
+.jumbotron {
+  width: 100%;
+  height: 350px;
+}
+
+.div-form p{
+  font-size: 12px;
+}
+
+.custom-jumbotron h1, .custom-jumbotron p{
+  color: white;
+  text-shadow: #444 0 1px 1px;
+}
+
+.modal {
+  /* ... */
+  overflow-y: scroll;
+}
+
+.navbar-default {
+      background: url("franja-de-mierda.png") no-repeat center bottom;
+
+  background-color: #3b55bb;
+  border-color: #1924ac;
+      min-height: 80px;
+
+}
+.navbar-default .navbar-brand {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #ffffff;
+}
+.navbar-default .navbar-text {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu {
+  background-color: #3b55bb;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
+  color: #ffffff;
+  background-color: #1924ac;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
+  background-color: #1924ac;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+  color: #ffffff;
+  background-color: #1924ac;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #1924ac;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #ffffff;
+  background-color: #1924ac;
+}
+.navbar-default .navbar-toggle {
+  border-color: #1924ac;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #1924ac;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ecf0f1;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #ecf0f1;
+}
+.navbar-default .navbar-link {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-link:hover {
+  color: #ffffff;
+}
+
+.icons{
+    margin-top:0px
+  }
+
+  aside.side{
+    margin-top:50px;
+    right:15px;
+  }
+
+  img.logo{
+    margin-top: 90px;
+  }
+
+  img.icons{
+   margin-top:10px;
+  }
+  
+@media (max-width: 767px) {
+
+ .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ecf0f1;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ffffff;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #ffffff;
+    background-color: #1924ac;
+  }
+    .section-white {
+     padding: 1.5em 0;
+  }
+
+ 
+
+  .navbar-brand{
+    padding-left:100px;
+  }
+
+  .input-group-addon {
+    min-width:110px;
+    text-align:left;
+  }
+
+  img.icons{
+    margin-top:0px
+  }
+
+  aside.side{
+    margin-top:1px;
+    right:0px;
+  }
+
+  .buttonConfirm{
+    margin-bottom: 10px;
+  }
+
+  .select2 {
+    width: 100% !important;
+  }
+  .slider{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  img.logo{
+    margin-top: 45px;
+    margin-bottom: 10px;
+    margin-left:25%;
+
+  }
+  img.logos{
+    margin-left: 20%;
+  }
+  img.logosSoat{
+    margin-left: 20%;
+  }
+}
